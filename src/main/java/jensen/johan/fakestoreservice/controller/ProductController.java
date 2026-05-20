@@ -23,6 +23,8 @@ public class ProductController {
         return service.fetchAndSaveProducts();
     }
 
+
+    // Get all products
     @GetMapping
     public List<Product> getAll() {
         return service.getAllProducts();
