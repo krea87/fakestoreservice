@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+
+  pre_build:
+    commands:
+      - echo Entered prebuild phase
+
+
+  build:
+    commands:
+      - echo Build started on
+      - mvn clean package
+      - dir target
+
+
+    post_build:
+      commands:
+        - echo Build completed
+
+
+
+artifacts:
+  files:
+    - target/fakestoreservice-0.0.1-SNAPSHOT.jar
+  discard-paths: yes
