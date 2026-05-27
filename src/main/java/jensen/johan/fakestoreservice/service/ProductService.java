@@ -17,6 +17,9 @@ public class ProductService {
     private final ProductRepository repository;
     private final RestTemplate restTemplate;
 
+    @Value("${fakestore_url}")
+    private String fakestoreUrl;
+
 
     public ProductService(ProductRepository repository) {
         this.repository = repository;
@@ -25,10 +28,8 @@ public class ProductService {
 
     public List<Product> fetchAndSaveProducts() {
 
-        String url = "https://fakestoreapi.com/products";
-
         Product[] response = restTemplate.getForObject(
-                url,
+                fakestoreUrl,
                 Product[].class
         );
 
