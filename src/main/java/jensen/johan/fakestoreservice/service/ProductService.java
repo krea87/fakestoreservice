@@ -41,7 +41,11 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return repository.findAll();
+        List<Product> products = repository.findAll();
+        if (products.isEmpty()) {
+            return fetchAndSaveProducts();
+        }
+        return products;
     }
 
 }
