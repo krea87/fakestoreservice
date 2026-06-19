@@ -17,9 +17,6 @@ public class ProductService {
     private final ProductRepository repository;
     private final RestTemplate restTemplate;
 
-    @Value("${fakestore_url}")
-    private String fakestoreUrl;
-
 
     public ProductService(ProductRepository repository) {
         this.repository = repository;
@@ -27,9 +24,11 @@ public class ProductService {
     }
 
     public List<Product> fetchAndSaveProducts() {
+        //adding this since environment variable is not working properly in AWS
 
+        String url = "https://fakestoreapi.com/products";
         Product[] response = restTemplate.getForObject(
-                fakestoreUrl,
+                url,
                 Product[].class
         );
 
