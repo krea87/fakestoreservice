@@ -1,5 +1,6 @@
 package jensen.johan.fakestoreservice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -10,6 +11,7 @@ public class Product {
     private Long id;
     private String title;
     private Double price;
+    @Column(length = 1000)
     private String description;
     private String category;
     private String image;
