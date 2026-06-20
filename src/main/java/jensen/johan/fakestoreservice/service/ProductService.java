@@ -3,6 +3,10 @@ package jensen.johan.fakestoreservice.service;
 import jensen.johan.fakestoreservice.model.Product;
 import jensen.johan.fakestoreservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,15 +31,21 @@ public class ProductService {
         //adding this since environment variable is not working properly in AWS
 
         String url = "https://fakestoreapi.com/products";
-        Product[] response = restTemplate.getForObject(
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+        ResponseEntity<Product[]> response = restTemplate.exchange(
                 url,
+                HttpMethod.GET,
+                entity,
                 Product[].class
         );
 
-        List <Product> products = Arrays.asList(response);
-
+        List <Product> products = Arrays.asList(response.getBody());
         repository.saveAll(products);
-
         return repository.findAll();
     }
 
