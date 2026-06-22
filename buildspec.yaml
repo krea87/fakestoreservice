@@ -14,7 +14,7 @@ phases:
       - dir target
 
 
-    post_build:
+  post_build:
       commands:
         - echo Build completed
 
