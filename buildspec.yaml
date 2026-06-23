@@ -10,7 +10,7 @@ phases:
       - echo Build started on $(date)
       - mvn clean package
       - echo Building Docker image
-      - docker build -t krea87/fakestoreservice:latest
+      - docker build -t krea87/fakestoreservice:latest .
   post_build:
     commands:
       - echo Build completed on $(date)
