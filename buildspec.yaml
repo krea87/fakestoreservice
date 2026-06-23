@@ -1,26 +1,22 @@
 version: 0.2
 
 phases:
-
   pre_build:
     commands:
-      - echo Entered prebuild phase
-
-
+      - echo Logging in to Docker Hub
+      - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
   build:
     commands:
-      - echo Build started on
+      - echo Build started on $(date)
       - mvn clean package
-      - dir target
-
-
+      - echo Building Docker image
+      - docker build -t krea87/fakestoreservice:latest
   post_build:
-      commands:
-        - echo Build completed
-
-
-
+    commands:
+      - echo Build completed on $(date)
+      - echo Pushing image to Docker Hub
+      - docker push krea87/fakestoreservice:latest
 artifacts:
   files:
-    - target/fakestoreservice-0.0.1-SNAPSHOT.jar
+    - 'target/*.jar'
   discard-paths: yes
